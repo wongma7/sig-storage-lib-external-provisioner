@@ -12,13 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-IMAGE?=hostpath-provisioner
+IMAGE ?= hostpath-provisioner
+VERSION := $(shell git describe --tags --always --dirty)
 
-all: dep hostpath-provisioner image
-
-dep:
-	-dep init
-	dep ensure
+all: hostpath-provisioner image
 
 hostpath-provisioner:
 	CGO_ENABLED=0 go build -a -ldflags '-extldflags "-static"' -o hostpath-provisioner .
